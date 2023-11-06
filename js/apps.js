@@ -18,7 +18,26 @@ function Pictures(name, image) {
   state.allPictures.push(this);
 }
 
-// Declare functions
+// Declare helper functions
+function renderVotes (){
+  function pickRandomPicture (){
+    return Math.floor(Math.random()*state.allPictures.length);
+  }
+  let odd1 = pickRandomPicture();
+  let odd2 = pickRandomPicture();
+  let odd3 = pickRandomPicture();
 
+  while (odd1 === odd2){
+    odd2 = pickRandomPicture();
+  }
+  while (odd2 === odd3){
+    odd3 = pickRandomPicture();
+  }
+  while (odd3 === odd1){
+    odd1 = pickRandomPicture();
+  }
+}
 
 // Run meaningful code
+
+renderVotes();
