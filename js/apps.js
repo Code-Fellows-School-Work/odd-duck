@@ -143,4 +143,25 @@ function renderPageImages (){
 
 renderPageImages();
 
+new Odd('bag', 'img/bag.jpg');
+new Odd('banana', 'img/banana.jpg');
+new Odd('bathroom', 'img/bathroom.jpg');
+new Odd('boots', 'img/boots.jpg');
+new Odd('breakfast,', 'img/breakfast.jpg');
+new Odd('bubblegum', 'img/bubblegum.jpg');
+new Odd('chair', 'img/chair.jpg');
+new Odd('cthulhu', 'img/cthulhu');
+new Odd('dog-duck', 'img/dog-duck');
+new Odd('dragon', 'img/dragon');
+new Odd('pen', 'img/pen');
+new Odd('pet-sweep', 'img/pet-sweep');
+new Odd('scissors', 'img/scissors');
+new Odd('shark', 'img/shark');
+new Odd('sweep', 'img/sweep');
+new Odd('tauntaun', 'img/tauntaun');
+new Odd('unicorn', 'img/unicorn');
+new Odd('water-can', 'img/water-can');
+new Odd('wine-glass', 'img/wine-glass');
+
+
 
