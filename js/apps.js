@@ -154,7 +154,7 @@ function renderPageImages (){
 // Run meaningful code
 
 function renderResultsButton() {
-  GamepadButton.style.display = 'block';
+  button.style.display = 'block';
 }
 
 function renderResults() {
@@ -178,7 +178,7 @@ function handleClick(event){
     removeListener();
     renderResultsButton();
   } else {
-    renderPageImages;
+    renderPageImages();
   }
 }
 
