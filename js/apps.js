@@ -3,14 +3,13 @@
 // Global variables
 
 const imagesContainer = document.getElementById('odd');
+const reportContainer = document.getElementById('myChart');
 
 const button = document.getElementById('showResults');
 
 const image1 = document.querySelector('.odd1 img');
 const image2 = document.querySelector('.odd2 img');
 const image3 = document.querySelector('.odd3 img');
-
-let previousImages = [];
 
 let state = {
   numClicksSoFar:  0,
@@ -49,11 +48,11 @@ new Pictures('wine-glass', 'img/wine-glass.jpg');
 
 // Helper functions
 
-
 function renderPageImages (){
   function pickRandomPicture (){
     return Math.floor(Math.random() * state.allPictures.length);
   }
+
   let odd1 = pickRandomPicture();
   let odd2 = pickRandomPicture();
   let odd3 = pickRandomPicture();
@@ -133,6 +132,49 @@ function removeListener() {
 renderPageImages();
 startListeners();
 
+let imageName = [];
+let imageVotes = [];
+let imageViews = [];
 
+for (let i = 0; i < state.allPictures.length; i ++) {
+  imageName.push(state.allPictures[i].name);
+  imageVotes.push(state.allPictures[i].votes);
+  imageViews.push(state.allPictures[i].views);
+}
+
+const data = {
+  labels: imageName,
+  datasets: [
+    {
+      label: 'Votes',
+      data: imageVotes,
+      borderWidth: 1,
+      backgroundColor: [
+        'blue'
+      ]
+    },
+    {
+      label: 'Views',
+      data: imageViews,
+      borderWidth: 1,
+      backgroundColor: ['red']
+    }
+  ]
+};
+
+const config = {
+  type: 'bar',
+  data: data,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+};
+
+// reportContainer is our <canvas> element for chartJS
+const myChart = new Chart(reportContainer, config);
 
 
