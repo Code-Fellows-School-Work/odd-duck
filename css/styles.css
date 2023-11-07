@@ -72,3 +72,18 @@ body {
   transform: scale(0.7);
   transform-origin: top center;
 }
+
+#odd1{
+  width: 50%;
+  height: auto;
+}
+
+#odd2{
+  width: 50%;
+  height: auto;
+}
+
+#odd3{
+  width: 50%;
+  height: auto;
+}

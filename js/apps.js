@@ -10,6 +10,8 @@ const image1 = document.querySelector('.odd1 img');
 const image2 = document.querySelector('.odd2 img');
 const image3 = document.querySelector('.odd3 img');
 
+let previousImages = [];
+
 let state = {
   numClicksSoFar:  0,
   numClicksAllowed: 25,
@@ -25,7 +27,29 @@ function Pictures(name, img) {
   state.allPictures.push(this);
 }
 
+new Pictures('bag', 'img/bag.jpg');
+new Pictures('banana', 'img/banana.jpg');
+new Pictures('bathroom', 'img/bathroom.jpg');
+new Pictures('boots', 'img/boots.jpg');
+new Pictures('breakfast,', 'img/breakfast.jpg');
+new Pictures('bubblegum', 'img/bubblegum.jpg');
+new Pictures('chair', 'img/chair.jpg');
+new Pictures('cthulhu', 'img/cthulhu.jpg');
+new Pictures('dog-duck', 'img/dog-duck.jpg');
+new Pictures('dragon', 'img/dragon.jpg');
+new Pictures('pen', 'img/pen.jpg');
+new Pictures('pet-sweep', 'img/pet-sweep.jpg');
+new Pictures('scissors', 'img/scissors.jpg');
+new Pictures('shark', 'img/shark.jpg');
+new Pictures('sweep', 'img/sweep.png');
+new Pictures('tauntaun', 'img/tauntaun.jpg');
+new Pictures('unicorn', 'img/unicorn.jpg');
+new Pictures('water-can', 'img/water-can.jpg');
+new Pictures('wine-glass', 'img/wine-glass.jpg');
+
 // Helper functions
+
+
 function renderPageImages (){
   function pickRandomPicture (){
     return Math.floor(Math.random() * state.allPictures.length);
@@ -105,26 +129,6 @@ function handleClick(event){
 function removeListener() {
   imagesContainer.removeEventListener('click', handleClick);
 }
-
-new Pictures('bag', 'img/bag.jpg');
-new Pictures('banana', 'img/banana.jpg');
-new Pictures('bathroom', 'img/bathroom.jpg');
-new Pictures('boots', 'img/boots.jpg');
-new Pictures('breakfast,', 'img/breakfast.jpg');
-new Pictures('bubblegum', 'img/bubblegum.jpg');
-new Pictures('chair', 'img/chair.jpg');
-new Pictures('cthulhu', 'img/cthulhu.jpg');
-new Pictures('dog-duck', 'img/dog-duck.jpg');
-new Pictures('dragon', 'img/dragon.jpg');
-new Pictures('pen', 'img/pen.jpg');
-new Pictures('pet-sweep', 'img/pet-sweep.jpg');
-new Pictures('scissors', 'img/scissors.jpg');
-new Pictures('shark', 'img/shark.jpg');
-new Pictures('sweep', 'img/sweep.png');
-new Pictures('tauntaun', 'img/tauntaun.jpg');
-new Pictures('unicorn', 'img/unicorn.jpg');
-new Pictures('water-can', 'img/water-can.jpg');
-new Pictures('wine-glass', 'img/wine-glass.jpg');
 
 renderPageImages();
 startListeners();
