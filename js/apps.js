@@ -12,7 +12,7 @@ const image3 = document.querySelector('.odd3 img');
 
 let state = {
   numClicksSoFar:  0,
-  numClicksAllowed: 5,
+  numClicksAllowed: 25,
   allPictures: [],
 };
 
