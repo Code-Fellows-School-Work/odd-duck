@@ -72,19 +72,16 @@ function renderResults() {
     resultItem.textContent = `${picture.name}: Votes - ${picture.votes}, Seen - ${picture.views}`;
     resultsContainer.appendChild(resultItem);
   });
-
-  console.log('Showing the Results');
 }
 
 function startListeners() {
-  // ... Your existing event listeners ...
-
-  // Add an event listener for the "Show Results" button
   const button = document.getElementById('showResults');
+  button.addEventListener('click', renderResults);
+
+  imagesContainer.addEventListener('click', handleClick);
   button.addEventListener('click', renderResults);
 }
 
-// get bane from alt tag of the image
 function handleClick(event){
   let pictureName = event.target.alt;
 
@@ -97,17 +94,12 @@ function handleClick(event){
 
   state.numClicksSoFar++;
 
-  if (state.numClicksSoFar === state.numClicksAllowed) {
+  if (state.numClicksSoFar >= state.numClicksAllowed) {
     removeListener();
     renderResultsButton();
   } else {
     renderPageImages();
   }
-}
-
-function startListeners() {
-  imagesContainer.addEventListener('click', handleClick);
-  button.addEventListener('click', renderResults);
 }
 
 function removeListener() {
