@@ -51,6 +51,12 @@ header {
 
 #showResults {
   display:none;
+  width: 250px;
+  height: 150px;
+}
+
+button {
+  size: 2em;
 }
 
 footer {
