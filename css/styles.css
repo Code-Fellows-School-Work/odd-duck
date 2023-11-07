@@ -47,10 +47,17 @@ header {
 * {
   border: 5px solid black;
   background-color: lightgrey;
+
 }
 
 #showResults {
   display:none;
+  width: 250px;
+  height: 150px;
+}
+
+button {
+  size: 2em;
 }
 
 footer {
@@ -59,4 +66,9 @@ footer {
   justify-content: center;
   height: 5vh;
   font-size: 2em;
+}
+
+body {
+  transform: scale(0.7);
+  transform-origin: top center;
 }
