@@ -1,25 +1,29 @@
 .container {  display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 15px 15px;
   grid-auto-flow: row;
   grid-template-areas:
-    "Title Title Title Title"
     "Results odd1 odd2 odd3"
-    "Results Lorem-Ipsum Lorem-Ipsum Lorem-Ipsum"
-    "Footer Footer Footer Footer";
+    "Results Lorem-Ipsum Lorem-Ipsum Lorem-Ipsum";
 }
-
-.Title { grid-area: Title; }
 
 .Results { grid-area: Results; }
 
 .Lorem-Ipsum { grid-area: Lorem-Ipsum; }
-
-.Footer { grid-area: Footer; }
 
 .odd1 { grid-area: odd1; }
 
 .odd2 { grid-area: odd2; }
 
 .odd3 { grid-area: odd3; }
+
+
+
+* {
+  border: 5px solid black;
+}
+
+#showResults {
+  display:none;
+}

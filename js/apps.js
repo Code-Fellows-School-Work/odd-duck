@@ -4,7 +4,6 @@
 
 const imagesContainer = document.getElementById('odd');
 
-
 const button = document.getElementById('showResults');
 
 const image1 = document.querySelector('.odd1 img');
@@ -13,7 +12,7 @@ const image3 = document.querySelector('.odd3 img');
 
 let state = {
   numClicksSoFar:  0,
-  numClicksAllowed: 25,
+  numClicksAllowed: 5,
   allPictures: [],
 };
 
@@ -64,7 +63,25 @@ function renderResultsButton() {
 }
 
 function renderResults() {
+  const resultsContainer = document.getElementById('report');
+  resultsContainer.innerHTML = ''; // Clear previous results
+
+  // Loop through allPictures and display results
+  state.allPictures.forEach((picture) => {
+    const resultItem = document.createElement('p');
+    resultItem.textContent = `${picture.name}: Votes - ${picture.votes}, Seen - ${picture.views}`;
+    resultsContainer.appendChild(resultItem);
+  });
+
   console.log('Showing the Results');
+}
+
+function startListeners() {
+  // ... Your existing event listeners ...
+
+  // Add an event listener for the "Show Results" button
+  const button = document.getElementById('showResults');
+  button.addEventListener('click', renderResults);
 }
 
 // get bane from alt tag of the image
@@ -80,7 +97,7 @@ function handleClick(event){
 
   state.numClicksSoFar++;
 
-  if (state.numClicksSoFar >= state.numClicksAllowed) {
+  if (state.numClicksSoFar === state.numClicksAllowed) {
     removeListener();
     renderResultsButton();
   } else {
@@ -119,6 +136,7 @@ new Pictures('wine-glass', 'img/wine-glass.jpg');
 
 renderPageImages();
 startListeners();
+
 
 
 
