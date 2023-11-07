@@ -13,7 +13,7 @@ const image3 = document.querySelector('.odd3 img');
 
 let state = {
   numClicksSoFar:  0,
-  numClicksAllowed: 25,
+  numClicksAllowed: 5,
   allPictures: [],
 };
 
@@ -94,7 +94,47 @@ function renderResults() {
     const resultItem = document.createElement('p');
     resultItem.textContent = `${picture.name}: Votes - ${picture.votes}, Seen - ${picture.views}`;
     resultsContainer.appendChild(resultItem);
-  });
+  })
+  let imageName = [];
+  let imageVotes = [];
+  let imageViews = [];
+
+  for (let i = 0; i < state.allPictures.length; i ++) {
+    imageName.push(state.allPictures[i].name);
+    imageVotes.push(state.allPictures[i].votes);
+    imageViews.push(state.allPictures[i].views);
+  }
+
+  const data = {
+    labels: imageName,
+    datasets: [
+      {
+        label: 'Votes',
+        data: imageVotes,
+        borderWidth: 1,
+        backgroundColor: 'blue'
+      },
+      {
+        label: 'Views',
+        data: imageViews,
+        borderWidth: 1,
+        backgroundColor: 'red'
+      }
+    ]
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+  const myChart = new Chart(reportContainer, config);
 }
 
 function startListeners() {
@@ -132,49 +172,7 @@ function removeListener() {
 renderPageImages();
 startListeners();
 
-let imageName = [];
-let imageVotes = [];
-let imageViews = [];
-
-for (let i = 0; i < state.allPictures.length; i ++) {
-  imageName.push(state.allPictures[i].name);
-  imageVotes.push(state.allPictures[i].votes);
-  imageViews.push(state.allPictures[i].views);
-}
-
-const data = {
-  labels: imageName,
-  datasets: [
-    {
-      label: 'Votes',
-      data: imageVotes,
-      borderWidth: 1,
-      backgroundColor: [
-        'blue'
-      ]
-    },
-    {
-      label: 'Views',
-      data: imageViews,
-      borderWidth: 1,
-      backgroundColor: ['red']
-    }
-  ]
-};
-
-const config = {
-  type: 'bar',
-  data: data,
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  }
-};
-
 // reportContainer is our <canvas> element for chartJS
-const myChart = new Chart(reportContainer, config);
+
 
 
