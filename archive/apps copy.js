@@ -4,11 +4,12 @@
 
 const imagesContainer = document.getElementById('odd');
 
+
 const button = document.getElementById('showResults');
 
-const image1 = document.querySelector('.odd1 img');
-const image2 = document.querySelector('.odd2 img');
-const image3 = document.querySelector('.odd3 img');
+const image1 = document.querySelector('#odd img:first-child');
+const image2 = document.querySelector('#odd img:nth-child(2)');
+const image3 = document.querySelector('#odd img:nth-child(3)');
 
 let state = {
   numClicksSoFar:  0,
@@ -28,30 +29,36 @@ function Pictures(name, img) {
 // Helper functions
 function renderPageImages (){
   function pickRandomPicture (){
-    return Math.floor(Math.random() * state.allPictures.length);
+    return Math.floor(Math.random()*state.allPictures.length);
   }
   let odd1 = pickRandomPicture();
   let odd2 = pickRandomPicture();
   let odd3 = pickRandomPicture();
 
-  while (odd1 === odd2 || odd1 === odd3 || odd2 === odd3) {
-    odd1 = pickRandomPicture();
+  while (odd1 === odd2){
     odd2 = pickRandomPicture();
+  }
+  while (odd2 === odd3){
     odd3 = pickRandomPicture();
+  }
+  while (odd3 === odd1){
+    odd1 = pickRandomPicture();
   }
 
   // puts images on screen
   image1.src = state.allPictures[odd1].imageFile;
   image1.alt = state.allPictures[odd1].name;
 
+  state.allPictures[odd1].views++;
+
   image2.src = state.allPictures[odd2].imageFile;
   image2.alt = state.allPictures[odd2].name;
+
+  state.allPictures[odd2].views++;
 
   image3.src = state.allPictures[odd3].imageFile;
   image3.alt = state.allPictures[odd3].name;
 
-  state.allPictures[odd1].views++;
-  state.allPictures[odd2].views++;
   state.allPictures[odd3].views++;
 
 }
@@ -63,25 +70,10 @@ function renderResultsButton() {
 }
 
 function renderResults() {
-  const resultsContainer = document.getElementById('report');
-  resultsContainer.innerHTML = ''; // Clear previous results
-
-  // Loop through allPictures and display results
-  state.allPictures.forEach((picture) => {
-    const resultItem = document.createElement('p');
-    resultItem.textContent = `${picture.name}: Votes - ${picture.votes}, Seen - ${picture.views}`;
-    resultsContainer.appendChild(resultItem);
-  });
+  console.log('Showing the Results');
 }
 
-function startListeners() {
-  const button = document.getElementById('showResults');
-  button.addEventListener('click', renderResults);
-
-  imagesContainer.addEventListener('click', handleClick);
-  button.addEventListener('click', renderResults);
-}
-
+// get bane from alt tag of the image
 function handleClick(event){
   let pictureName = event.target.alt;
 
@@ -100,6 +92,11 @@ function handleClick(event){
   } else {
     renderPageImages();
   }
+}
+
+function startListeners() {
+  imagesContainer.addEventListener('click', handleClick);
+  button.addEventListener('click', renderResults);
 }
 
 function removeListener() {
@@ -128,7 +125,6 @@ new Pictures('wine-glass', 'img/wine-glass.jpg');
 
 renderPageImages();
 startListeners();
-
 
 
 
