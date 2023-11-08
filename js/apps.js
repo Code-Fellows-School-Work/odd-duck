@@ -48,6 +48,7 @@ new Pictures('water-can', 'img/water-can.jpg');
 new Pictures('wine-glass', 'img/wine-glass.jpg');
 
 // Helper functions
+// render images, ensures two of the same images doesn't show at the same time, ensures same images don't show on duplicate iterations
 function renderPageImages (){
   function pickRandomPicture (){
     return Math.floor(Math.random() * state.allPictures.length);
@@ -94,6 +95,7 @@ function renderPageImages (){
   state.allPictures[odd3].views++;
 }
 // Run meaningful code
+
 // display results button
 function renderResultsButton() {
   button.style.display = 'block';
@@ -184,13 +186,9 @@ function handleClick(event){
 function removeListener() {
   imagesContainer.removeEventListener('click', handleClick);
 }
-// Load data from local storage or initialize if not present
-
 
 renderPageImages();
 startListeners();
-
-// reportContainer is our <canvas> element for chartJS
 
 
 
