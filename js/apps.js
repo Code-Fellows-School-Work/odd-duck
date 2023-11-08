@@ -3,6 +3,7 @@
 // Global variables
 
 const imagesContainer = document.getElementById('odd');
+const reportContainer = document.getElementById('myChart');
 
 const button = document.getElementById('showResults');
 
@@ -14,7 +15,9 @@ let state = {
   numClicksSoFar:  0,
   numClicksAllowed: 25,
   allPictures: [],
+  usedPictures: [],
 };
+
 
 // Pictures contructor function, takes declared pictures below, gives all these properties, then pushes into allPictures array
 function Pictures(name, img) {
@@ -25,11 +28,40 @@ function Pictures(name, img) {
   state.allPictures.push(this);
 }
 
+new Pictures('bag', 'img/bag.jpg');
+new Pictures('banana', 'img/banana.jpg');
+new Pictures('bathroom', 'img/bathroom.jpg');
+new Pictures('boots', 'img/boots.jpg');
+new Pictures('breakfast,', 'img/breakfast.jpg');
+new Pictures('bubblegum', 'img/bubblegum.jpg');
+new Pictures('chair', 'img/chair.jpg');
+new Pictures('cthulhu', 'img/cthulhu.jpg');
+new Pictures('dog-duck', 'img/dog-duck.jpg');
+new Pictures('dragon', 'img/dragon.jpg');
+new Pictures('pen', 'img/pen.jpg');
+new Pictures('pet-sweep', 'img/pet-sweep.jpg');
+new Pictures('scissors', 'img/scissors.jpg');
+new Pictures('shark', 'img/shark.jpg');
+new Pictures('sweep', 'img/sweep.png');
+new Pictures('tauntaun', 'img/tauntaun.jpg');
+new Pictures('unicorn', 'img/unicorn.jpg');
+new Pictures('water-can', 'img/water-can.jpg');
+new Pictures('wine-glass', 'img/wine-glass.jpg');
+
 // Helper functions
+
+function restoreImages() {
+  state.usedImages.forEach((usedImage) => {
+    state.allPictures.push(usedImage);
+  });
+  state.usedImages = [];
+}
+
 function renderPageImages (){
   function pickRandomPicture (){
     return Math.floor(Math.random() * state.allPictures.length);
   }
+
   let odd1 = pickRandomPicture();
   let odd2 = pickRandomPicture();
   let odd3 = pickRandomPicture();
@@ -39,6 +71,10 @@ function renderPageImages (){
     odd2 = pickRandomPicture();
     odd3 = pickRandomPicture();
   }
+
+  console.log('Image 1 Name:', state.allPictures[odd1].name);
+  console.log('Image 2 Name:', state.allPictures[odd2].name);
+  console.log('Image 3 Name:', state.allPictures[odd3].name);
 
   // puts images on screen
   image1.src = state.allPictures[odd1].imageFile;
@@ -66,12 +102,54 @@ function renderResults() {
   const resultsContainer = document.getElementById('report');
   resultsContainer.innerHTML = ''; // Clear previous results
 
-  // Loop through allPictures and display results
+  // Loop through all Pictures and display results
   state.allPictures.forEach((picture) => {
     const resultItem = document.createElement('p');
     resultItem.textContent = `${picture.name}: Votes - ${picture.votes}, Seen - ${picture.views}`;
     resultsContainer.appendChild(resultItem);
   });
+
+  // display barchart of votes and views
+  let imageName = [];
+  let imageVotes = [];
+  let imageViews = [];
+
+  for (let i = 0; i < state.allPictures.length; i ++) {
+    imageName.push(state.allPictures[i].name);
+    imageVotes.push(state.allPictures[i].votes);
+    imageViews.push(state.allPictures[i].views);
+  }
+
+  const data = {
+    labels: imageName,
+    datasets: [
+      {
+        label: 'Votes',
+        data: imageVotes,
+        borderWidth: 1,
+        backgroundColor: 'blue'
+      },
+      {
+        label: 'Views',
+        data: imageViews,
+        borderWidth: 1,
+        backgroundColor: 'red'
+      }
+    ]
+  };
+
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+  const myChart = new Chart(reportContainer, config);
 }
 
 function startListeners() {
@@ -98,6 +176,8 @@ function handleClick(event){
     removeListener();
     renderResultsButton();
   } else {
+    state.usedImages = state.allPictures.splice(0, 3); // Remove the first 3 images
+    restoreImages();
     renderPageImages();
   }
 }
@@ -106,29 +186,10 @@ function removeListener() {
   imagesContainer.removeEventListener('click', handleClick);
 }
 
-new Pictures('bag', 'img/bag.jpg');
-new Pictures('banana', 'img/banana.jpg');
-new Pictures('bathroom', 'img/bathroom.jpg');
-new Pictures('boots', 'img/boots.jpg');
-new Pictures('breakfast,', 'img/breakfast.jpg');
-new Pictures('bubblegum', 'img/bubblegum.jpg');
-new Pictures('chair', 'img/chair.jpg');
-new Pictures('cthulhu', 'img/cthulhu.jpg');
-new Pictures('dog-duck', 'img/dog-duck.jpg');
-new Pictures('dragon', 'img/dragon.jpg');
-new Pictures('pen', 'img/pen.jpg');
-new Pictures('pet-sweep', 'img/pet-sweep.jpg');
-new Pictures('scissors', 'img/scissors.jpg');
-new Pictures('shark', 'img/shark.jpg');
-new Pictures('sweep', 'img/sweep.png');
-new Pictures('tauntaun', 'img/tauntaun.jpg');
-new Pictures('unicorn', 'img/unicorn.jpg');
-new Pictures('water-can', 'img/water-can.jpg');
-new Pictures('wine-glass', 'img/wine-glass.jpg');
-
 renderPageImages();
 startListeners();
 
+// reportContainer is our <canvas> element for chartJS
 
 
 
