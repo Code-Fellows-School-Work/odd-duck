@@ -50,6 +50,13 @@ new Pictures('wine-glass', 'img/wine-glass.jpg');
 
 // Helper functions
 
+function restoreImages() {
+  state.usedImages.forEach((usedImage) => {
+    state.allPictures.push(usedImage);
+  });
+  state.usedImages = [];
+}
+
 function renderPageImages (){
   function pickRandomPicture (){
     return Math.floor(Math.random() * state.allPictures.length);
@@ -169,8 +176,6 @@ function handleClick(event){
     removeListener();
     renderResultsButton();
   } else {
-    state.usedImages = state.allPictures.splice(0, 3); // Remove the first 3 images
-    restoreImages();
     renderPageImages();
   }
 }
