@@ -13,3 +13,7 @@ November 6, 2023:
 - Validated with lab11 instructions for full project functionality
 - [Lighthouse Score](lighthouse/lab11-lighthouse.PNG)
 - Added transform property to reduce overall webpage size
+
+November 7, 2023:
+- Added bar chart that displays number of times an image was seen and number of times an images was clicked
+- Could not figure out the algorithm to ensure the same image is not displayed on two subsequent iterations

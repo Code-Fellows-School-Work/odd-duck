@@ -13,9 +13,11 @@ const image3 = document.querySelector('.odd3 img');
 
 let state = {
   numClicksSoFar:  0,
-  numClicksAllowed: 5,
+  numClicksAllowed: 25,
   allPictures: [],
+  usedPictures: [],
 };
+
 
 // Pictures contructor function, takes declared pictures below, gives all these properties, then pushes into allPictures array
 function Pictures(name, img) {
@@ -48,6 +50,13 @@ new Pictures('wine-glass', 'img/wine-glass.jpg');
 
 // Helper functions
 
+function restoreImages() {
+  state.usedImages.forEach((usedImage) => {
+    state.allPictures.push(usedImage);
+  });
+  state.usedImages = [];
+}
+
 function renderPageImages (){
   function pickRandomPicture (){
     return Math.floor(Math.random() * state.allPictures.length);
@@ -62,6 +71,10 @@ function renderPageImages (){
     odd2 = pickRandomPicture();
     odd3 = pickRandomPicture();
   }
+
+  console.log('Image 1 Name:', state.allPictures[odd1].name);
+  console.log('Image 2 Name:', state.allPictures[odd2].name);
+  console.log('Image 3 Name:', state.allPictures[odd3].name);
 
   // puts images on screen
   image1.src = state.allPictures[odd1].imageFile;
@@ -89,12 +102,14 @@ function renderResults() {
   const resultsContainer = document.getElementById('report');
   resultsContainer.innerHTML = ''; // Clear previous results
 
-  // Loop through allPictures and display results
+  // Loop through all Pictures and display results
   state.allPictures.forEach((picture) => {
     const resultItem = document.createElement('p');
     resultItem.textContent = `${picture.name}: Votes - ${picture.votes}, Seen - ${picture.views}`;
     resultsContainer.appendChild(resultItem);
-  })
+  });
+
+  // display barchart of votes and views
   let imageName = [];
   let imageVotes = [];
   let imageViews = [];
@@ -161,6 +176,8 @@ function handleClick(event){
     removeListener();
     renderResultsButton();
   } else {
+    state.usedImages = state.allPictures.splice(0, 3); // Remove the first 3 images
+    restoreImages();
     renderPageImages();
   }
 }
