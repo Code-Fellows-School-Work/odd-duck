@@ -2,11 +2,11 @@
 
 // Global variables
 
+// find my stuff
 const imagesContainer = document.getElementById('odd');
 const reportContainer = document.getElementById('myChart');
-
 const button = document.getElementById('showResults');
-
+// find where to click
 const image1 = document.querySelector('.odd1 img');
 const image2 = document.querySelector('.odd2 img');
 const image3 = document.querySelector('.odd3 img');
@@ -15,9 +15,8 @@ let state = {
   numClicksSoFar:  0,
   numClicksAllowed: 25,
   allPictures: [],
-  usedPictures: [],
+  usedPictures: new Set(),
 };
-
 
 // Pictures contructor function, takes declared pictures below, gives all these properties, then pushes into allPictures array
 function Pictures(name, img) {
@@ -32,7 +31,7 @@ new Pictures('bag', 'img/bag.jpg');
 new Pictures('banana', 'img/banana.jpg');
 new Pictures('bathroom', 'img/bathroom.jpg');
 new Pictures('boots', 'img/boots.jpg');
-new Pictures('breakfast,', 'img/breakfast.jpg');
+new Pictures('breakfast', 'img/breakfast.jpg');
 new Pictures('bubblegum', 'img/bubblegum.jpg');
 new Pictures('chair', 'img/chair.jpg');
 new Pictures('cthulhu', 'img/cthulhu.jpg');
@@ -49,28 +48,32 @@ new Pictures('water-can', 'img/water-can.jpg');
 new Pictures('wine-glass', 'img/wine-glass.jpg');
 
 // Helper functions
-
-function restoreImages() {
-  state.usedImages.forEach((usedImage) => {
-    state.allPictures.push(usedImage);
-  });
-  state.usedImages = [];
-}
-
 function renderPageImages (){
   function pickRandomPicture (){
     return Math.floor(Math.random() * state.allPictures.length);
   }
 
-  let odd1 = pickRandomPicture();
-  let odd2 = pickRandomPicture();
-  let odd3 = pickRandomPicture();
+  let currentSet = new Set();
 
-  while (odd1 === odd2 || odd1 === odd3 || odd2 === odd3) {
+  let odd1 = pickRandomPicture();
+  while (state.usedPictures.has(odd1)){
     odd1 = pickRandomPicture();
+  }
+  currentSet.add(odd1);
+
+  let odd2 = pickRandomPicture();
+  while (state.usedPictures.has(odd2) || odd2 === odd1){
     odd2 = pickRandomPicture();
+  }
+  currentSet.add(odd2);
+
+  let odd3 = pickRandomPicture();
+  while (state.usedPictures.has(odd3) || odd3 === odd1 || odd3 === odd2) {
     odd3 = pickRandomPicture();
   }
+  currentSet.add(odd3);
+
+  state.usedPictures = currentSet;
 
   console.log('Image 1 Name:', state.allPictures[odd1].name);
   console.log('Image 2 Name:', state.allPictures[odd2].name);
@@ -89,15 +92,13 @@ function renderPageImages (){
   state.allPictures[odd1].views++;
   state.allPictures[odd2].views++;
   state.allPictures[odd3].views++;
-
 }
-
 // Run meaningful code
-
+// display results button
 function renderResultsButton() {
   button.style.display = 'block';
 }
-
+// render text results and bar graph
 function renderResults() {
   const resultsContainer = document.getElementById('report');
   resultsContainer.innerHTML = ''; // Clear previous results
@@ -119,7 +120,7 @@ function renderResults() {
     imageVotes.push(state.allPictures[i].votes);
     imageViews.push(state.allPictures[i].views);
   }
-
+  // bar graph
   const data = {
     labels: imageName,
     datasets: [
@@ -151,7 +152,7 @@ function renderResults() {
   };
   const myChart = new Chart(reportContainer, config);
 }
-
+// display buttom to show text results and bar graph
 function startListeners() {
   const button = document.getElementById('showResults');
   button.addEventListener('click', renderResults);
@@ -159,7 +160,7 @@ function startListeners() {
   imagesContainer.addEventListener('click', handleClick);
   button.addEventListener('click', renderResults);
 }
-
+// enable image clicking
 function handleClick(event){
   let pictureName = event.target.alt;
 
@@ -176,15 +177,15 @@ function handleClick(event){
     removeListener();
     renderResultsButton();
   } else {
-    state.usedImages = state.allPictures.splice(0, 3); // Remove the first 3 images
-    restoreImages();
     renderPageImages();
   }
 }
-
+// remove image clicking
 function removeListener() {
   imagesContainer.removeEventListener('click', handleClick);
 }
+// Load data from local storage or initialize if not present
+
 
 renderPageImages();
 startListeners();
