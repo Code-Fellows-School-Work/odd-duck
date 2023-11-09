@@ -94,6 +94,19 @@ function renderPageImages (){
   state.allPictures[odd2].views++;
   state.allPictures[odd3].views++;
 }
+function loadStateFromLocalStorage() {
+  const savedState = localStorage.getItem('votingApp');
+  if (savedState) {
+    state = JSON.parse(savedState);
+  }
+}
+loadStateFromLocalStorage();
+
+// Save state to local storage
+function saveStateToLocalStorage() {
+  localStorage.setItem('votingApp', JSON.stringify(state));
+}
+
 // Run meaningful code
 
 // display results button
@@ -153,6 +166,8 @@ function renderResults() {
     }
   };
   const myChart = new Chart(reportContainer, config);
+
+  saveStateToLocalStorage();
 }
 // display buttom to show text results and bar graph
 function startListeners() {
@@ -181,6 +196,8 @@ function handleClick(event){
   } else {
     renderPageImages();
   }
+  // Save state to local storage after each vote
+  saveStateToLocalStorage();
 }
 // remove image clicking
 function removeListener() {
@@ -189,6 +206,3 @@ function removeListener() {
 
 renderPageImages();
 startListeners();
-
-
-
