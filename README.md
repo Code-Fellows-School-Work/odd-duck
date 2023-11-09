@@ -23,3 +23,4 @@ November 7, 2023:
 November 8, 2023:
 
 - Worked with Chris A. to prevent two subsequent iterations from displaying. He shared his code with me and explained how to use the set function to store used pictures into a set then return the pictures so they are available for use again.
+- Tried to implement code for local storage but could not figure it out. Need to revist class demo for proper steps and insights
