@@ -21,4 +21,5 @@ November 7, 2023:
 - Could not figure out the algorithm to ensure the same image is not displayed on two subsequent iterations. I tried putting used pictures into a used pictures array, then after 2 clicks, restore those images back into the pictures array for future iterations
 
 November 8, 2023:
+
 - Worked with Chris A. to prevent two subsequent iterations from displaying. He shared his code with me and explained how to use the set function to store used pictures into a set then return the pictures so they are available for use again.

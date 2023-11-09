@@ -48,6 +48,7 @@ new Pictures('water-can', 'img/water-can.jpg');
 new Pictures('wine-glass', 'img/wine-glass.jpg');
 
 // Helper functions
+// render images, ensures two of the same images doesn't show at the same time, ensures same images don't show on duplicate iterations
 function renderPageImages (){
   function pickRandomPicture (){
     return Math.floor(Math.random() * state.allPictures.length);
@@ -93,7 +94,21 @@ function renderPageImages (){
   state.allPictures[odd2].views++;
   state.allPictures[odd3].views++;
 }
+function loadStateFromLocalStorage() {
+  const savedState = localStorage.getItem('votingApp');
+  if (savedState) {
+    state = JSON.parse(savedState);
+  }
+}
+loadStateFromLocalStorage();
+
+// Save state to local storage
+function saveStateToLocalStorage() {
+  localStorage.setItem('votingApp', JSON.stringify(state));
+}
+
 // Run meaningful code
+
 // display results button
 function renderResultsButton() {
   button.style.display = 'block';
@@ -151,6 +166,8 @@ function renderResults() {
     }
   };
   const myChart = new Chart(reportContainer, config);
+
+  saveStateToLocalStorage();
 }
 // display buttom to show text results and bar graph
 function startListeners() {
@@ -179,18 +196,13 @@ function handleClick(event){
   } else {
     renderPageImages();
   }
+  // Save state to local storage after each vote
+  saveStateToLocalStorage();
 }
 // remove image clicking
 function removeListener() {
   imagesContainer.removeEventListener('click', handleClick);
 }
-// Load data from local storage or initialize if not present
-
 
 renderPageImages();
 startListeners();
-
-// reportContainer is our <canvas> element for chartJS
-
-
-
