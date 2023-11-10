@@ -2,6 +2,10 @@
 
 cf20111-odd duck
 
+About: Odd Ducks Products has invested in a web application to determine their next line of product. This application will render a set of randomized images and users can vote on which image they think should be the next product brought to market. The user can vote 25 times and the app prevents the user from seeing identical images without a duplicate set to prevent bias responses. After the votes are complete, the app will display the number of times an image was voted for and the number of times the image was seen via a bar chart and rendered text. The app will save votes and seen data throughout the entirety of it's life.
+
+Change page:
+
 November 6, 2023:
 
 - Inital commit
