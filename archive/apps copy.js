@@ -27,10 +27,11 @@ function Pictures(name, img) {
   state.allPictures.push(this);
 }
 
-let retrievedItems = localStorage.getItem('savedItems');
+// add local storage to save clicks and view per refresh
+let storage = localStorage.getItem('savedPictures');
 
-if (retrievedItems) {
-  state.allPictures = JSON.parse(retrievedItems);
+if (storage) {
+  state.allPictures = JSON.parse(storage);
 } else {
   new Pictures('bag', 'img/bag.jpg');
   new Pictures('banana', 'img/banana.jpg');
@@ -54,6 +55,7 @@ if (retrievedItems) {
 }
 
 // Helper functions
+
 // render images, ensures two of the same images doesn't show at the same time, ensures same images don't show on duplicate iterations
 function renderPageImages (){
   function pickRandomPicture (){
@@ -182,14 +184,14 @@ function handleClick(event){
   state.numClicksSoFar++;
 
   let stringifiedItems = JSON.stringify(state.allPictures);
-  localStorage.setItem('savedItems', stringifiedItems);
-}
+  localStorage.setItem('savedPictures', stringifiedItems);
 
-if (state.numClicksSoFar >= state.numClicksAllowed) {
-  removeListener();
-  renderResultsButton();
-} else {
-  renderPageImages();
+  if (state.numClicksSoFar >= state.numClicksAllowed) {
+    removeListener();
+    renderResultsButton();
+  } else {
+    renderPageImages();
+  }
 }
 
 // remove image clicking
@@ -199,4 +201,3 @@ function removeListener() {
 
 renderPageImages();
 startListeners();
-// init();

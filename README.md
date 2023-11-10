@@ -28,3 +28,9 @@ November 8, 2023:
 November 9, 2023:
 
 - Used Jessica H. code during code review as reference to write load and store functions. I think the functionality is working, however there is now a bug that prevents the images to properly render on the webpage.
+
+November 10, 2023:
+
+- Fixed load and store functionality. App will save views and votes between load refreshes.
+- Updated some CSS to prevent chart from expanding too large and centered images within grid container
+- [Updated Lighthouse Score](lighthouse/updatedlighthouse.PNG)
