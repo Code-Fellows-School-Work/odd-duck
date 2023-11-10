@@ -19,39 +19,49 @@ let state = {
 };
 
 // Pictures contructor function, takes declared pictures below, gives all these properties, then pushes into allPictures array
-function Pictures(name, img) {
+function Pictures(name, img, votes = 0, views = 0) {
   this.name = name;
   this.imageFile = img;
-  this.votes = 0;
-  this.views = 0;
+  this.votes = votes;
+  this.views = views;
   state.allPictures.push(this);
 }
 
-new Pictures('bag', 'img/bag.jpg');
-new Pictures('banana', 'img/banana.jpg');
-new Pictures('bathroom', 'img/bathroom.jpg');
-new Pictures('boots', 'img/boots.jpg');
-new Pictures('breakfast', 'img/breakfast.jpg');
-new Pictures('bubblegum', 'img/bubblegum.jpg');
-new Pictures('chair', 'img/chair.jpg');
-new Pictures('cthulhu', 'img/cthulhu.jpg');
-new Pictures('dog-duck', 'img/dog-duck.jpg');
-new Pictures('dragon', 'img/dragon.jpg');
-new Pictures('pen', 'img/pen.jpg');
-new Pictures('pet-sweep', 'img/pet-sweep.jpg');
-new Pictures('scissors', 'img/scissors.jpg');
-new Pictures('shark', 'img/shark.jpg');
-new Pictures('sweep', 'img/sweep.png');
-new Pictures('tauntaun', 'img/tauntaun.jpg');
-new Pictures('unicorn', 'img/unicorn.jpg');
-new Pictures('water-can', 'img/water-can.jpg');
-new Pictures('wine-glass', 'img/wine-glass.jpg');
 
-// function init (){
-//   let stateString = localStorage.getItem('state') || '';
-//   state = JSON.parse(stateString);
-//   console.log('Read the state', state);
+let savedPictures = localStorage.getItem('savedPictures');
+
+if (savedPictures){
+  state.allPictures = JSON.parse(savedPictures);
+} else {
+  new Pictures('bag', 'img/bag.jpg');
+  new Pictures('banana', 'img/banana.jpg');
+  new Pictures('bathroom', 'img/bathroom.jpg');
+  new Pictures('boots', 'img/boots.jpg');
+  new Pictures('breakfast', 'img/breakfast.jpg');
+  new Pictures('bubblegum', 'img/bubblegum.jpg');
+  new Pictures('chair', 'img/chair.jpg');
+  new Pictures('cthulhu', 'img/cthulhu.jpg');
+  new Pictures('dog-duck', 'img/dog-duck.jpg');
+  new Pictures('dragon', 'img/dragon.jpg');
+  new Pictures('pen', 'img/pen.jpg');
+  new Pictures('pet-sweep', 'img/pet-sweep.jpg');
+  new Pictures('scissors', 'img/scissors.jpg');
+  new Pictures('shark', 'img/shark.jpg');
+  new Pictures('sweep', 'img/sweep.png');
+  new Pictures('tauntaun', 'img/tauntaun.jpg');
+  new Pictures('unicorn', 'img/unicorn.jpg');
+  new Pictures('water-can', 'img/water-can.jpg');
+  new Pictures('wine-glass', 'img/wine-glass.jpg');
+}
+
+
+// function saveLocalStorageData(){
+//   const dataToStore = {
+//     state: state.usedPictures,
+//   };
+//   localStorage.setItem('savedData', JSON.stringify(dataToStore));
 // }
+
 // Helper functions
 // render images, ensures two of the same images doesn't show at the same time, ensures same images don't show on duplicate iterations
 function renderPageImages (){
@@ -94,6 +104,10 @@ function renderPageImages (){
 
   image3.src = state.allPictures[odd3].imageFile;
   image3.alt = state.allPictures[odd3].name;
+
+  state.usedPictures.add(odd1);
+  state.usedPictures.add(odd2);
+  state.usedPictures.add(odd3);
 
   state.allPictures[odd1].views++;
   state.allPictures[odd2].views++;
@@ -167,6 +181,7 @@ function startListeners() {
   imagesContainer.addEventListener('click', handleClick);
   button.addEventListener('click', renderResults);
 }
+
 // enable image clicking
 function handleClick(event){
   let pictureName = event.target.alt;
@@ -176,6 +191,8 @@ function handleClick(event){
       state.allPictures[i].votes++;
       break;
     }
+    let stringifiedPictures = JSON.stringify(state.allPictures);
+    localStorage.setItem('savedPictures', stringifiedPictures);
   }
 
   state.numClicksSoFar++;
@@ -186,6 +203,7 @@ function handleClick(event){
   } else {
     renderPageImages();
   }
+  // saveLocalStorageData();
 }
 // remove image clicking
 function removeListener() {
@@ -194,4 +212,3 @@ function removeListener() {
 
 renderPageImages();
 startListeners();
-init();
