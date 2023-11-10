@@ -24,3 +24,7 @@ November 8, 2023:
 
 - Worked with Chris A. to prevent two subsequent iterations from displaying. He shared his code with me and explained how to use the set function to store used pictures into a set then return the pictures so they are available for use again.
 - Tried to implement code for local storage but could not figure it out. Need to revist class demo for proper steps and insights
+
+November 9, 2023:
+
+- Used Jessica H. code during code review as reference to write load and store functions. I think the functionality is working, however there is now a bug that prevents the images to properly render on the webpage.
