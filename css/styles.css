@@ -9,44 +9,38 @@ header {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 15px 15px;
-  grid-auto-flow: row;
   grid-template-areas:
     "Results odd1 odd2 odd3"
     "Results Lorem-Ipsum Lorem-Ipsum Lorem-Ipsum";
+  align-content: center;
+  justify-items: center;
+  align-items: start;
 }
-
-.Results {
-  grid-area: Results;
-  border: 5px solid black;
-  font-size: 2em;
-  text-align: center;
-  overflow: hidden; /* Add this line to hide overflow */
-}
+.Results { grid-area: Results; }
+.Lorem-Ipsum { grid-area: Lorem-Ipsum; }
+.odd1 { grid-area: odd1; }
+.odd2 { grid-area: odd2; }
+.odd3 { grid-area: odd3; }
 
 .Lorem-Ipsum {
   grid-area: Lorem-Ipsum;
-  border: 5px solid black;
   text-align: center;
   font-size: 2em;
-  overflow: hidden; /* Add this line to hide overflow */
 }
 
 .odd1 {
   grid-area: odd1;
   border: 5px solid black;
-  overflow: hidden; /* Add this line to hide overflow */
 }
 
 .odd2 {
   grid-area: odd2;
   border: 5px solid black;
-  overflow: hidden; /* Add this line to hide overflow */
 }
 
 .odd3 {
   grid-area: odd3;
   border: 5px solid black;
-  overflow: hidden; /* Add this line to hide overflow */
 }
 
 * {
@@ -56,8 +50,8 @@ header {
 
 #showResults {
   display: none;
-  width: 550px;
-  height: 150px;
+  width: 250px;
+  height: 100px;
 }
 
 button {
@@ -86,5 +80,5 @@ body {
 }
 
 #myChart {
-  width: 50px;
+  width: 1500px;
 }

@@ -27,7 +27,7 @@ function Pictures(name, img, votes = 0, views = 0) {
   state.allPictures.push(this);
 }
 
-
+// saves data for pictures seen and pictures views between refreshes
 let savedPictures = localStorage.getItem('savedPictures');
 
 if (savedPictures){
@@ -53,14 +53,6 @@ if (savedPictures){
   new Pictures('water-can', 'img/water-can.jpg');
   new Pictures('wine-glass', 'img/wine-glass.jpg');
 }
-
-
-// function saveLocalStorageData(){
-//   const dataToStore = {
-//     state: state.usedPictures,
-//   };
-//   localStorage.setItem('savedData', JSON.stringify(dataToStore));
-// }
 
 // Helper functions
 // render images, ensures two of the same images doesn't show at the same time, ensures same images don't show on duplicate iterations
